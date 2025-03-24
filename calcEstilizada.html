@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+        *{
+            font-family: 'Raleway';
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body{
+            position: relative;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        nav{
+            position: fixed;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        nav h1, nav .links{
+            margin-inline: 32px;
+        }
+        nav .links{
+            display: flex;
+            gap: clamp(24px, 10vw, 52px);
+        }
+        nav .link{
+            position: relative;
+            color: white;
+            text-decoration: none;
+        }
+        nav .links .link:hover{
+            font-weight: bold;
+        }
+        nav .links .link:not(.link.login):after{
+            content: '';
+            position: absolute;
+            height: 2px;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            background-color: #FFF;
+            transition: .3s;
+        }
+        nav .links .link:not(.link.login):hover:after{
+            width: 100%;
+            background: linear-gradient(211deg, rgba(237,28,36,1) 0%, rgba(235,215,30,1) 25%, rgba(85,230,21,1) 50%, rgba(69,200,241,1) 75%, rgba(143,21,249,1) 100%);
+        }
+
+        section{
+            min-height: 100vh;
+            display: flex;
+        }
+        #home{
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: url('assets/prisma2.png');
+            background-size: cover;
+            color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        #home h1{
+            margin: 0;
+            font-size: 3em;
+            text-shadow: 0 0 5px #000;
+        }
+        #home p{
+            margin: 0;
+            text-shadow: 0 0 5px #000;
+        }
+        #home #button{
+            padding: 4px 24px;
+            margin-top: 12px;
+            text-decoration: none;
+            backdrop-filter: blur(5px);
+            color: #FFF;
+            outline: none;
+            border: 1px solid;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: background 2s;
+            cursor: pointer;
+            margin-bottom: 42px;
+        }
+        #home #button:hover{
+            font-weight: bold;
+            background: rgb(237,28,36);
+            background: linear-gradient(211deg, rgba(237,28,36,1) 25%, rgba(235,215,30,1) 40%, rgba(85,230,21,1) 55%, rgba(69,200,241,1) 70%, rgba(143,21,249,1) 85%, rgba(255,0,0,1) 100%);
+            background-repeat: no-repeat;
+            background-size: 400%;
+            background-position: 100% 100%;
+        }
+        .arrow {
+        text-align: center;
+        position: absolute;
+        bottom: 12px;
+        }
+        .bounce {
+        -moz-animation: bounce 2s infinite;
+        -webkit-animation: bounce 2s infinite;
+        animation: bounce 2s infinite;
+        }
+        .arrow a{
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-30px);
+        }
+        60% {
+            transform: translateY(-15px);
+        }
+        }
+        
+        .conteudo{
+            margin-top: 100vh;
+            z-index: 1;
+        }
+        .conteudo #section-conversao{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #section-conversao .side{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-inline: 52px;
+        }
+        #section-conversao .form{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }   
+        #section-conversao .input-tipo-num{
+            display: flex;
+            position: relative;
+            flex-direction: row;
+            border: 1px solid gray;
+            border-radius: 6px;
+            transition: .3s;
+        }
+        #section-conversao .input-tipo-num:hover,
+        #section-conversao .select:hover,
+        #section-conversao .input-tipo-num:has(input:focus), 
+        #section-conversao .select:focus{
+            border-color: #85c1dd;
+            box-shadow: 0px 0px 5px 0px #85c1ddAA;
+        }
+        #section-conversao .input-tipo-num input{
+            flex: 1;
+        }
+        #section-conversao .input-tipo-num input, #section-conversao .input-tipo-num select{
+            background-color: transparent;
+            outline: none;
+            border: none;
+            padding: 6px;
+        }
+        #section-conversao .input-tipo-num select {
+            margin-right: 8px;
+            padding: 6px 0;
+        }
+        #section-conversao .input-tipo-num::after{
+            content: "";
+            align-self: center;
+            position: absolute;
+            right: 112px;
+            background-color: gray;
+            height: 80%;
+            width: 1px;
+        }
+        #section-conversao .input-tipo-num:has(input:focus)::after{
+            background-color: #85c1dd;
+        }
+        #section-conversao .select{
+            padding: 6px;
+            border-radius: 6px;
+            background-color: transparent;
+            outline: none;
+            transition: .3s;
+        }
+        #section-conversao button{
+            flex: 1;
+            padding: 6px;
+            border-radius: 6px;
+            outline: none;
+            border: 1px solid gray;
+            cursor: pointer;
+            transition: .3s;
+        }
+        #section-conversao button:hover{
+            background-color: #85c1dd;
+            border: 1px solid #85c1dd;
+            box-shadow: 0px 0px 12px 0px #85c1ddAA;
+            scale: 1.025;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Bases</title>
+</head>
+<body>
+    <nav>
+        <h1>Conversor Bases</h1>
+        <div class="links">
+            <a href="#conteudo" class="link">Conversor</a>
+            <a href="#" class="link">Como Converter</a>
+            <a href="#" class="link">Usabilidades</a>
+            <a href="#" class="link">Equipe</a>
+        </div>
+    </nav>
+
+    <section id="home">
+        <h1>Conversor de Bases Númericas</h1>
+        <p>Faça operações, conversões e manipule diferentes bases númericas com alguns cliques!</p>
+        <a href="#conteudo" id="button">Começe agora :)</a>
+        <div class="arrow bounce">
+            <a class="fa fa-arrow-down fa-2x" href="#"></a>
+        </div>
+    </section>
+    <div class="conteudo" id="conteudo">
+        <section style="background-color: white;" id="section-conversao">
+            <div class="side">
+                <h1>Conversor</h1>
+                <div class="form">
+                    <label for="ipt-num-conversao">Digite o Número a ser Convertido:</label>
+                    <div class="input-tipo-num">
+                        <input type="text" id="ipt-num-conversao" placeholder="ex. 1234">
+                        <select id="select-tipo-num">
+                            <option value="dec">Decimal</option>
+                            <option value="bin">Binário</option>
+                            <option value="oct">Octal</option>
+                            <option value="hex">Hexadecimal</option>
+                        </select>
+                    </div>
+                    <label for="select-tipo-conversao">Selecione o tipo que deseja converter:</label>
+                    <select id="select-tipo-conversao" class="select">
+                        <option value="dec">Decimal</option>
+                        <option value="bin">Binário</option>
+                        <option value="oct">Octal</option>
+                        <option value="hex">Hexadecimal</option>
+                    </select>
+                    <button>Converter</button>
+                </div>
+            </div>
+            <div class="side">
+
+            </div>
+        </section>
+
+        <section style="background-color: white;" id="section-conversao">
+            <div class="side">
+
+            </div>
+            <div class="side">
+                <h1>Calculadora</h1>
+                <div class="form">
+                    <label for="ipt-num-calc-1">Digite o 1*Número:</label>
+                    <div class="input-tipo-num">
+                        <input type="text" id="ipt-num-calc-1" placeholder="ex. 52">
+                        <select id="select-tipo-num-calc-1">
+                            <option value="dec">Decimal</option>
+                            <option value="bin">Binário</option>
+                            <option value="oct">Octal</option>
+                            <option value="hex">Hexadecimal</option>
+                        </select>
+                    </div>
+                    <label for="ipt-num-calc-2">Digite o 2*Número:</label>
+                    <div class="input-tipo-num">
+                        <input type="text" id="ipt-num-calc-2" placeholder="ex. 82">
+                        <select id="select-tipo-num-calc-2">
+                            <option value="dec">Decimal</option>
+                            <option value="bin">Binário</option>
+                            <option value="oct">Octal</option>
+                            <option value="hex">Hexadecimal</option>
+                        </select>
+                    </div>
+                    <select id="select-operador" class="select">
+                        <option value="soma">Soma (+)</option>
+                        <option value="sub">Subtração (-)</option>
+                        <option value="mult">Multiplicação (x)</option>
+                        <option value="divisao">Divisão (/)</option>
+                    </select>
+                    <button>Calcular</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
