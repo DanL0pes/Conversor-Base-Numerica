@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conversor Número</title>
+</head>
+<body>
+  <h1>Decimal</h1>
+  <input type="number" id="numero" placeholder="Digite o número decimal">
+  <button onclick="converterDecBinario()">Binário</button>
+  <button onclick="converterDecOctal()">Octal</button>
+  <button onclick="converterDecHexa()">Hexadecimal</button>
+  <br>
+
+  <h1>Octal</h1>
+  <input type="text" id="octalInput" placeholder="Digite o número octal">
+  <button onclick="converterOctalBinario()">Binário</button>
+  <button onclick="converterOctalDec()">Decimal</button>
+  <button onclick="converterOctalHexa()">Hexadecimal</button>
+  <br>
+
+  <h1>Hexadecimal</h1>
+  <input type="text" id="hexaInput" placeholder="Digite o número hexadecimal">
+  <button onclick="converterHexaBinario()">Binário</button>
+  <button onclick="converterHexaOctal()">Octal</button>
+  <button onclick="converterHexaDec()">Decimal</button>
+  <br>
+
+  <h1>Binário</h1>
+  <input type="text" id="binaryInput" placeholder="Digite o número binário">
+  <button onclick="converterBinarioOctal()">Octal</button>
+  <button onclick="converterBinarioDec()">Decimal</button>
+  <button onclick="converterBinarioHexa()">Hexadecimal</button>
+
+  <script>
+    /* Decimal Conversor */
+    function converterDecBinario(){
+      var num = Number(numero.value);
+      alert(num.toString(2));
+    }
+    function converterDecOctal(){
+      var num = Number(numero.value);
+      alert(num.toString(8));
+    }
+    function converterDecHexa(){
+      var num = Number(numero.value);
+      alert(num.toString(16));
+    }
+
+    /* Octal Conversor */
+    function converterOctalBinario(){
+      var octal = octalInput.value;
+      var decimal = parseInt(octal, 8);
+      if (!(decimal >= 0)) {
+        alert("Valor octal inválido.");
+      } else {
+        alert(decimal.toString(2));
+      }
+    }
+    function converterOctalDec(){
+      var octal = octalInput.value;
+      var decimal = parseInt(octal, 8);
+      if (!(decimal >= 0)) {
+        alert("Valor octal inválido.");
+      } else {
+        alert(decimal);
+      }
+    }
+    function converterOctalHexa(){
+      var octal = octalInput.value;
+      var decimal = parseInt(octal, 8);
+      if (!(decimal >= 0)) {
+        alert("Valor octal inválido.");
+      } else {
+        alert(decimal.toString(16));
+      }
+    }
+
+    /* Hexadecimal Conversor */
+    function converterHexaBinario(){
+      var hexa = hexaInput.value;
+      var decimal = parseInt(hexa, 16);
+      if (!(decimal >= 0)) {
+        alert("Valor hexadecimal inválido.");
+      } else {
+        alert(decimal.toString(2));
+      }
+    }
+    function converterHexaOctal(){
+      var hexa = hexaInput.value;
+      var decimal = parseInt(hexa, 16);
+      if (!(decimal >= 0)) {
+        alert("Valor hexadecimal inválido.");
+      } else {
+        alert(decimal.toString(8));
+      }
+    }
+    function converterHexaDec(){
+      var hexa = hexaInput.value;
+      var decimal = parseInt(hexa, 16);
+      if (!(decimal >= 0)) {
+        alert("Valor hexadecimal inválido.");
+      } else {
+        alert(decimal.toString(10));
+      }
+    }
+
+    /* Binário Conversor */
+    function converterBinarioOctal(){
+      var binario = binaryInput.value;
+      var decimal = parseInt(binario, 2); 
+      if (!(decimal >= 0)) {
+        alert("Valor binário inválido.");
+      } else {
+        alert(decimal.toString(8));
+      }
+    }
+    function converterBinarioDec(){
+      var binario = binaryInput.value; 
+      var decimal = parseInt(binario, 2); 
+      if (!(decimal >= 0)) {
+        alert("Valor binário inválido.");
+      } else {
+        alert(decimal.toString(10));
+      }
+    }
+    function converterBinarioHexa(){
+      var binario = binaryInput.value; 
+      var decimal = parseInt(binario, 2); 
+      if (!(decimal >= 0)) {
+        alert("Valor binário inválido.");
+      } else {
+        alert(decimal.toString(16).toUpperCase());
+      }
+    }
+  </script>
+</body>
+</html>
