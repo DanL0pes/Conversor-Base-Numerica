@@ -3,11 +3,11 @@
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <style>
         *{
-            font-family: 'Raleway';
+            font-family: 'DM Sans';
         }
         html {
             scroll-behavior: smooth;
@@ -135,6 +135,11 @@
         .conteudo{
             margin-top: 100vh;
             z-index: 1;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         .conteudo #section-conversao{
             display: flex;
@@ -145,57 +150,69 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
             margin-inline: 52px;
+        }
+        .side.baseConversor #wave{
+            position: absolute;
+            right: -52px;
+            bottom: 52px;
+            width: 100%;
+            z-index: 0;
+        }
+        .side.baseConversor #convertImg{
+            z-index: 1;
         }
         #section-conversao .form{
             display: flex;
             flex-direction: column;
             gap: 6px;
         }   
-        #section-conversao .input-tipo-num{
+        .input-tipo-num{
             display: flex;
             position: relative;
             flex-direction: row;
+            background-color: whitesmoke;
             border: 1px solid gray;
             border-radius: 6px;
             transition: .3s;
         }
-        #section-conversao .input-tipo-num:hover,
+        .input-tipo-num:hover,
         #section-conversao .select:hover,
-        #section-conversao .input-tipo-num:has(input:focus), 
+        .input-tipo-num:has(input:focus), 
         #section-conversao .select:focus{
             border-color: #85c1dd;
             box-shadow: 0px 0px 5px 0px #85c1ddAA;
         }
-        #section-conversao .input-tipo-num input{
+        .input-tipo-num input{
             flex: 1;
         }
-        #section-conversao .input-tipo-num input, #section-conversao .input-tipo-num select{
+        .input-tipo-num input, #section-conversao .input-tipo-num select{
             background-color: transparent;
             outline: none;
             border: none;
             padding: 6px;
         }
-        #section-conversao .input-tipo-num select {
+        .input-tipo-num select {
             margin-right: 8px;
             padding: 6px 0;
         }
-        #section-conversao .input-tipo-num::after{
+        .input-tipo-num::after{
             content: "";
             align-self: center;
             position: absolute;
-            right: 112px;
+            right: 118px;
             background-color: gray;
             height: 80%;
             width: 1px;
         }
-        #section-conversao .input-tipo-num:has(input:focus)::after{
+        .input-tipo-num:has(input:focus)::after{
             background-color: #85c1dd;
         }
         #section-conversao .select{
+            background-color: whitesmoke;
             padding: 6px;
             border-radius: 6px;
-            background-color: transparent;
             outline: none;
             transition: .3s;
         }
@@ -207,9 +224,11 @@
             border: 1px solid gray;
             cursor: pointer;
             transition: .3s;
+            background: transparent;
         }
         #section-conversao button:hover{
             background-color: #85c1dd;
+            color: #000;
             border: 1px solid #85c1dd;
             box-shadow: 0px 0px 12px 0px #85c1ddAA;
             scale: 1.025;
@@ -239,72 +258,311 @@
         </div>
     </section>
     <div class="conteudo" id="conteudo">
-        <section style="background-color: white;" id="section-conversao">
-            <div class="side">
+        <section id="section-conversao">
+            <div class="side" style="background-color: #FFF; padding: 12px; border-radius: 8px;">
                 <h1>Conversor</h1>
                 <div class="form">
-                    <label for="ipt-num-conversao">Digite o Número a ser Convertido:</label>
+                    <label for="ipt_num_conversao">Digite o Número a ser Convertido:</label>
                     <div class="input-tipo-num">
-                        <input type="text" id="ipt-num-conversao" placeholder="ex. 1234">
-                        <select id="select-tipo-num">
+                        <input type="text" id="ipt_num_conversao" placeholder="ex. 1234">
+                        <select id="select_tipo_num">
                             <option value="dec">Decimal</option>
                             <option value="bin">Binário</option>
                             <option value="oct">Octal</option>
                             <option value="hex">Hexadecimal</option>
                         </select>
                     </div>
-                    <label for="select-tipo-conversao">Selecione o tipo que deseja converter:</label>
-                    <select id="select-tipo-conversao" class="select">
-                        <option value="dec">Decimal</option>
-                        <option value="bin">Binário</option>
-                        <option value="oct">Octal</option>
-                        <option value="hex">Hexadecimal</option>
+                    <label for="select_tipo_conversao">Selecione para qual tipo que deseja converter:</label>
+                    <select id="select_tipo_conversao" class="select">
+                        <option value="dec">Decimal 🔟</option>
+                        <option value="bin">Binário ⚫⚪</option>
+                        <option value="oct">Octal 🅾️8</option>
+                        <option value="hex">Hexadecimal 🔡</option>
                     </select>
-                    <button>Converter</button>
+                    <button onclick="converterBase()">Converter</button>
+                    <div id="div_resultado_conversao"></div>
                 </div>
             </div>
-            <div class="side">
-
+            <div class="side baseConversor">
+                <img src="assets/convert.png" alt="Conversor de Bases" id="convertImg" style="width: 100%;">
+                <img src="assets/Vector.png" id="wave">
             </div>
         </section>
 
-        <section style="background-color: white;" id="section-conversao">
+        <section id="section-conversao">
             <div class="side">
 
             </div>
-            <div class="side">
+            <div class="side" style="background-color: #FFF; padding: 12px; border-radius: 8px;">
                 <h1>Calculadora</h1>
                 <div class="form">
-                    <label for="ipt-num-calc-1">Digite o 1*Número:</label>
+                    <label for="ipt_num_calc1">Digite o 1*Número:</label>
                     <div class="input-tipo-num">
-                        <input type="text" id="ipt-num-calc-1" placeholder="ex. 52">
-                        <select id="select-tipo-num-calc-1">
+                        <input type="text" id="ipt_num_calc1" placeholder="ex. 52">
+                        <select id="select_tipo_num_calc1">
                             <option value="dec">Decimal</option>
                             <option value="bin">Binário</option>
                             <option value="oct">Octal</option>
                             <option value="hex">Hexadecimal</option>
                         </select>
                     </div>
-                    <label for="ipt-num-calc-2">Digite o 2*Número:</label>
+                    <label for="ipt-num-calc2">Digite o 2*Número:</label>
                     <div class="input-tipo-num">
-                        <input type="text" id="ipt-num-calc-2" placeholder="ex. 82">
-                        <select id="select-tipo-num-calc-2">
+                        <input type="text" id="ipt_num_calc2" placeholder="ex. 82">
+                        <select id="select_tipo_num_calc2">
                             <option value="dec">Decimal</option>
                             <option value="bin">Binário</option>
                             <option value="oct">Octal</option>
                             <option value="hex">Hexadecimal</option>
                         </select>
                     </div>
-                    <select id="select-operador" class="select">
+                    <select id="select_operador" class="select">
                         <option value="soma">Soma (+)</option>
                         <option value="sub">Subtração (-)</option>
                         <option value="mult">Multiplicação (x)</option>
                         <option value="divisao">Divisão (/)</option>
                     </select>
-                    <button>Calcular</button>
+                    <label for="">Selecione a base do resultado:</label>
+                    <select id="select_tipo_num_calc_result" class="select">
+                        <option value="dec">Decimal 🔟</option>
+                        <option value="bin">Binário ⚫⚪</option>
+                        <option value="oct">Octal 🅾️8</option>
+                        <option value="hex">Hexadecimal 🔡</option>
+                    </select>
+                    <button onclick="calc()">Calcular</button>
+                    <div id="div_resultado_calc"></div>
                 </div>
             </div>
         </section>
     </div>
 </body>
+
+<script>
+    function converterBase(){
+        var tipoConversao = select_tipo_conversao.value;
+        var tipoNum = select_tipo_num.value;
+        if(tipoNum == 'bin'){
+            var valor = Number(ipt_num_conversao.value);
+            if(tipoConversao == 'bin'){
+                div_resultado_conversao.innerHTML = ('O número já está em binário!'); 
+            } else if(tipoConversao == 'dec'){
+                converterBinarioDec(valor);
+            } else if(tipoConversao == 'oct'){
+                converterBinarioOctal(valor);
+            } else if(tipoConversao == 'hex'){
+                converterBinarioHexa(valor);
+            }
+        }
+        if(tipoNum == 'dec'){
+            var valor = Number(ipt_num_conversao.value);
+            if(tipoConversao == 'dec'){
+                div_resultado_conversao.innerHTML = ('O número já está em decimal!'); 
+            } else if(tipoConversao == 'bin'){
+                converterDecBinario(valor);
+            } else if(tipoConversao == 'oct'){
+                converterDecOctal(valor);
+            } else if(tipoConversao == 'hex'){
+                converterDecHexa(valor);
+            }
+        }
+        if(tipoNum == 'oct'){
+            var valor = Number(ipt_num_conversao.value);
+            if(tipoConversao == 'oct'){
+                div_resultado_conversao.innerHTML = ('O número já está em octal!'); 
+            } else if(tipoConversao == 'bin'){
+                converterOctalBinario(valor);
+            } else if(tipoConversao == 'dec'){
+                converterOctalDec(valor);
+            } else if(tipoConversao == 'hex'){
+                converterOctalHexa(valor);
+            }
+        }
+        if(tipoNum == 'hex'){
+            var valor = ipt_num_conversao.value;
+            if(tipoConversao == 'hex'){
+                div_resultado_conversao.innerHTML = ('O número já está em hexadecimal!'); 
+            } else if(tipoConversao == 'bin'){
+                converterHexaBinario(valor);
+            } else if(tipoConversao == 'oct'){
+                converterHexaOctal(valor);
+            } else if(tipoConversao == 'dec'){
+                converterHexaDec(valor);
+            }
+        }
+    }
+
+    /* Decimal Conversor */
+    function converterDecBinario(dec){
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${dec.toString(2).toUpperCase()}`;
+    }
+    function converterDecOctal(dec){
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${dec.toString(8).toUpperCase()}`;
+    }
+    function converterDecHexa(dec){
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${dec.toString(16).toUpperCase()}`;
+    }
+
+    /* Octal Conversor */
+    function converterOctalBinario(octal){
+      var decimal = parseInt(octal, 8);
+      if (!(decimal >= 0)) {
+        alert("Valor octal inválido.");
+      } else {
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${decimal.toString(2)}`;
+      }
+    }
+    function converterOctalDec(octal){
+      var decimal = parseInt(octal, 8);
+      if (!(decimal >= 0)) {
+        alert("Valor octal inválido.");
+      } else {
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${decimal.toString(10)}`;
+      }
+    }
+    function converterOctalHexa(octal){
+      var decimal = parseInt(octal, 8);
+      if (!(decimal >= 0)) {
+        alert("Valor octal inválido.");
+      } else {
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${decimal.toString(16).toUpperCase()}`;
+      }
+    }
+
+    /* Hexadecimal Conversor */
+    function converterHexaBinario(hexa){
+      var decimal = parseInt(hexa, 16);
+      if (!(decimal >= 0)) {
+        alert("Valor hexadecimal inválido.");
+      } else {
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${decimal.toString(2)}`;
+      }
+    }
+    function converterHexaOctal(hexa){
+      var decimal = parseInt(hexa, 16);
+      if (!(decimal >= 0)) {
+        alert("Valor hexadecimal inválido.");
+      } else {
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${decimal.toString(8)}`;
+      }
+    }
+    function converterHexaDec(hexa){
+      var decimal = parseInt(hexa, 16);
+      if (!(decimal >= 0)) {
+        alert("Valor hexadecimal inválido.");
+      } else {
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${decimal.toString(10)}`;
+      }
+    }
+
+    /* Binário Conversor */
+    function converterBinarioOctal(binario){
+      var decimal = parseInt(binario, 2); 
+      if (!(decimal >= 0)) {
+        alert("Valor binário inválido.");
+      } else {
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${decimal.toString(8)}`;
+      }
+    }
+    function converterBinarioDec(binario){
+      var decimal = parseInt(binario, 2); 
+      if (!(decimal >= 0)) {
+        alert("Valor binário inválido.");
+      } else {
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${decimal.toString(10)}`;
+      }
+    }
+    function converterBinarioHexa(binario){
+      var decimal = parseInt(binario, 2); 
+      if (!(decimal >= 0)) {
+        alert("Valor binário inválido.");
+      } else {
+        div_resultado_conversao.innerHTML = `<b>Resultado:</b> ${decimal.toString(16).toUpperCase()}`;
+      }
+    }
+
+
+    function calc(){
+        var tipoNum1 = select_tipo_num_calc1.value;
+        var tipoNum2 = select_tipo_num_calc2.value;
+        var tipoRes = select_tipo_num_calc_result.value;
+        var num1 = ipt_num_calc1.value;
+        var num2 = ipt_num_calc2.value;
+        var operador = select_operador.value;
+
+        if(tipoNum1 == 'bin'){
+            numConvertido1 = parseInt(num1, 2);
+        } else if(tipoNum1 == 'oct'){
+            numConvertido1 = parseInt(num1, 8);
+        } else if(tipoNum1 == 'hex'){
+            numConvertido1 = parseInt(num1, 16);
+        } else{
+            numConvertido1 = Number(num1);
+        }
+
+        if(tipoNum2){
+            if(tipoNum2 == 'bin'){
+                numConvertido2 = parseInt(num2, 2);
+            } else if(tipoNum2 == 'oct'){
+                numConvertido2 = parseInt(num2, 8);
+            } else if(tipoNum2 == 'hex'){
+                numConvertido2 = parseInt(num2, 16);
+            } else{
+                numConvertido2 = Number(num2);
+            }
+        }
+
+
+        if(operador == 'soma'){
+            if(tipoRes == 'dec'){
+                var resultado = numConvertido1 + numConvertido2;
+            } else if(tipoRes == 'bin'){
+                var resultado = (numConvertido1 + numConvertido2).toString(2);
+            } else if(tipoRes == 'oct'){
+                var resultado = (numConvertido1 + numConvertido2).toString(8);
+            } else if(tipoRes == 'hex'){
+                var resultado = (numConvertido1 + numConvertido2).toString(16).toUpperCase();
+            }
+            div_resultado_calc.innerHTML = `<b>Resultado:</b> ${num1}(<i>${tipoNum1}</i>) + ${num2}(<i>${tipoNum2}</i>) = ${resultado}(<i>${tipoRes}</i>)`;
+        }
+        if(operador == 'sub'){
+            if(tipoRes == 'dec'){
+                var resultado = numConvertido1 - numConvertido2;
+            } else if(tipoRes == 'bin'){
+                var resultado = (numConvertido1 - numConvertido2).toString(2);
+            } else if(tipoRes == 'oct'){
+                var resultado = (numConvertido1 - numConvertido2).toString(8);
+            } else if(tipoRes == 'hex'){
+                var resultado = (numConvertido1 - numConvertido2).toString(16).toUpperCase();
+            }
+            var resultado = numConvertido1 - numConvertido2;
+            div_resultado_calc.innerHTML = `<b>Resultado:</b> ${num1}(<i>${tipoNum1}</i>) - ${num2}(<i>${tipoNum2}</i>) = ${resultado}(<i>${tipoRes}</i>)`;
+        }
+        if(operador == 'mult'){
+            if(tipoRes == 'dec'){
+                var resultado = numConvertido1 * numConvertido2;
+            } else if(tipoRes == 'bin'){
+                var resultado = (numConvertido1 * numConvertido2).toString(2);
+            } else if(tipoRes == 'oct'){
+                var resultado = (numConvertido1 * numConvertido2).toString(8);
+            } else if(tipoRes == 'hex'){
+                var resultado = (numConvertido1 * numConvertido2).toString(16).toUpperCase();
+            }
+            var resultado = numConvertido1 * numConvertido2;
+            div_resultado_calc.innerHTML = `<b>Resultado:</b> ${num1}(<i>${tipoNum1}</i>) x ${num2}(<i>${tipoNum2}</i>) = ${resultado}(<i>${tipoRes}</i>)`;
+        }
+        if(operador == 'divisao'){
+            if(tipoRes == 'dec'){
+                var resultado = numConvertido1 / numConvertido2;
+            } else if(tipoRes == 'bin'){
+                var resultado = (numConvertido1 / numConvertido2).toString(2);
+            } else if(tipoRes == 'oct'){
+                var resultado = (numConvertido1 / numConvertido2).toString(8);
+            } else if(tipoRes == 'hex'){
+                var resultado = (numConvertido1 / numConvertido2).toString(16).toUpperCase();
+            }
+            var resultado = numConvertido1 / numConvertido2;
+            div_resultado_calc.innerHTML = `<b>Resultado:</b> ${num1}(<i>${tipoNum1}</i>) / ${num2}(<i>${tipoNum2}</i>) = ${resultado}(<i>${tipoRes}</i>)`;
+        }
+    }
+</script>
 </html>
